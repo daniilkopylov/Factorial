@@ -35,6 +35,10 @@ public class Factorial {
 
                     // Символы перевода строки (\n, \r) или конец потока (-1) означают ввод завершен
                     if (code == '\n' || code == '\r' || code == -1) {
+                        // Очищаем оставшиеся символы перевода строки из потока (актуально для Windows \r\n)
+                        if (code == '\r' && System.in.available() > 0) {
+                            System.in.read();
+                        }
                         break;
                     }
 
@@ -43,7 +47,7 @@ public class Factorial {
                     // Проверяем знак минуса, флаг hasDigits чтобы косвенно проверять только 1й символ
                     if (!hasDigits && ch == '-') {
                         isNegative = true;
-                        break;
+                        continue;
                     }
 
                     // Если это цифра, добавляем её к числу
@@ -54,18 +58,16 @@ public class Factorial {
                         // Защита от переполнения: если число превысило лимит int
                         if (accumulatedNumber > Integer.MAX_VALUE) {
                             isOverflow = true;
-                            break;
                         }
                     } else {
                         isInvalidChar = true;
-                        break;
                     }
                 }
 
                 /**
                  * Логика обработки флагов ошибок
                  * Можно было бы использовать throw new Exception()
-                  */
+                 */
 
                 if (isInvalidChar) {
                     System.out.println("Ошибка: обнаружены недопустимые символы. Введите только цифры.\n");
