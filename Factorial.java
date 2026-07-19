@@ -5,6 +5,8 @@ public class Factorial {
 
     /**
      * Вычисляет факториал числа последовательным умножением.
+     * Самый неэффективный метод в рамках доступной библиотеки java.math
+     * Использование сторонних библиотек могло быть более эффективным
      */
     public static BigInteger calculateFactorial(int n) {
         BigInteger result = BigInteger.ONE;
